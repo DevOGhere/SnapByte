@@ -1,4 +1,5 @@
-import React from "react";
+import { Models } from 'appwrite';
+import { InfiniteData } from '@tanstack/react-query';
 import {
     useQuery,
     useMutation,
@@ -25,7 +26,7 @@ import {
     getInfinitePosts,
     searchPosts,
     savePost,
-    deleteSavedPost,
+    deleteSavedPost, 
   } from "@/lib/appwrite/api";
   import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
   
@@ -56,22 +57,22 @@ import {
   // POST QUERIES
   // ============================================================
   
-  export const useGetPosts = () => {
-    return useInfiniteQuery({
-      queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
-      queryFn: getInfinitePosts as any,
-      getNextPageParam: (lastPage: any) => {
-        // If there's no data, there are no more pages.
-        if (lastPage && lastPage.documents.length === 0) {
-          return null;
-        }
+  // export const useGetPosts = () => {
+  //   return useInfiniteQuery<InfiniteData<Models.Document>, Error>({
+  //     queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
+  //     queryFn: getInfinitePosts as any,
+  //     getNextPageParam: (lastPage: Models.Document[]) => {
+  //       // If there's no data, there are no more pages.
+  //       if (lastPage && lastPage.length === 0) {
+  //         return null;
+  //       }
   
-        // Use the $id of the last document as the cursor.
-        const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
-        return lastId;
-      },
-    });
-  };
+  //       // Use the $id of the last document as the cursor.
+  //       const lastId = lastPage[lastPage.length - 1].$id;
+  //       return lastId? lastId.toString() : null;
+  //     }, 
+  //   });
+  // };
   
   export const useSearchPosts = (searchTerm: string) => {
     return useQuery({

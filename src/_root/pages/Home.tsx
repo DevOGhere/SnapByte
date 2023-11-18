@@ -1,13 +1,11 @@
-import React from 'react'
+import React from 'react';
+import { Models } from 'appwrite';
+import { Loader, UserCard } from '@/components/shared';
+import { useGetRecentPosts, useGetUsers } from '@/lib/react-query/queries';
+import { PostCard } from '@/components/shared';
 
-import { Models } from "appwrite";
- //import { useToast } from "@/components/ui/use-toast";
-import { Loader, PostCard, UserCard } from "@/components/shared";
-import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
 
 const Home = () => {
- // const { toast } = useToast();
-
   const {
     data: posts,
     isPending: isPostLoading,
@@ -43,7 +41,7 @@ const Home = () => {
             <ul className="flex flex-col flex-1 gap-9 w-full ">
               {posts?.documents.map((post: Models.Document) => (
                 <li key={post.$id} className="flex justify-center w-full">
-                  <PostCard post={post} />
+                 {/* <PostCard post={post} /> */}
                 </li>
               ))}
             </ul>
@@ -69,5 +67,4 @@ const Home = () => {
   );
 };
 
-
-export default Home ;
+export default Home;
